@@ -48,6 +48,34 @@
           >Register</a
         >
       </div>
+      <div *ngIf="authSvc.getCurrentUser()" class="row">
+        <div class="col">
+          <div ngbDropdown class="d-inline-block">
+            <img
+              type="button"
+              class="btn btn-outline-primary"
+              id="dropdownBasic1"
+              ngbDropdownToggle
+              src="https://i.pinimg.com/564x/1b/a2/e6/1ba2e6d1d4874546c70c91f1024e17fb.jpg"
+              alt="avatar"
+              class="rounded-circle"
+            />
+
+            <ul ngbDropdownMenu aria-labelledby="dropdownBasic1">
+              <li ngbDropdownItem>
+                <a class="dropdown-item" routerLink="/profile">Profile</a>
+              </li>
+              <li ngbDropdownItem>
+                <a routerLink="/users" class="dropdown-item">Users</a>
+              </li>
+
+              <li ngbDropdownItem>
+                <a (click)="logout()" class="dropdown-item btn">Logout</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </header>

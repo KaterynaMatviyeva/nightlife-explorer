@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { AuthService } from '../auth.service';
 import { NgForm } from '@angular/forms';
 import { iRegisterRequest } from '../../interfaces/i-register-request';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -11,11 +12,12 @@ import { iRegisterRequest } from '../../interfaces/i-register-request';
 export class RegisterComponent {
   errorMessage: string = '';
 
-  constructor(private authSrv: AuthService) {}
+  constructor(private authSrv: AuthService, private router: Router) {}
 
   onSubmit(registerForm: NgForm) {
     if (registerForm.invalid) {
       this.errorMessage = 'Verifica i dati inseriti';
+
       return;
     }
 
@@ -24,8 +26,12 @@ export class RegisterComponent {
       next: (res) => {
         if (res.data) {
           console.log('Registrazione avvenuta con successo:', res.data.user);
-          localStorage.setItem('token', res.data.token);
+
           this.authSrv.user.next(res.data.user);
+          registerForm.reset();
+          alert('Registrazione avvenuta con successo');
+          console.log('res.data.token:', res.data.token);
+          this.router.navigate(['/auth/login']);
         }
       },
       error: (err) => {
