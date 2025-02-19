@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { iLoginCredentials } from '../interfaces/i-login-credentials';
 import { iApiResponse } from '../interfaces/i-api-response';
@@ -30,10 +30,10 @@ export class AuthService {
     if (token && !this.jwtHelper.isTokenExpired(token)) {
       this.restoreLogin().subscribe({
         next: (res) => {
-          console.log(res);
+          console.log('questo è il restore login', res);
         },
         error: (err) => {
-          console.error('Errore in restoreLogin:', err);
+          console.error('Errore in restore Login:', err);
         },
       });
     }
@@ -44,12 +44,10 @@ export class AuthService {
       .post<iApiResponse<iAuthResponse>>(this.registerUrl, registerData)
       .pipe(
         tap((res) => {
-          //  loggato automaticamente dopo la registrazione,
-          // salvo il token
           if (res.status === 'SUCCESS' && res.data) {
             localStorage.setItem('token', res.data.token);
             this.user.next(res.data.user);
-            //  il timer 'auto-logout
+
             this.autoLogOut();
           }
         })
@@ -62,15 +60,12 @@ export class AuthService {
       .pipe(
         tap((res) => {
           if (res.status === 'SUCCESS' && res.data) {
-            // Salvo token in localStorage
             localStorage.setItem('token', res.data.token);
-            //michele consiglia di mettere tutta la response cioè user + token
+
             console.log('Token ricevuto dal server:', res.data.token);
 
-            // Aggiorno lo stato dell’utente
             this.user.next(res.data.user);
 
-            //  timer di logout
             this.autoLogOut();
           }
         })
@@ -79,7 +74,7 @@ export class AuthService {
 
   restoreLogin(): Observable<iApiResponse<iAuthResponse> | null> {
     const token = localStorage.getItem('token');
-    // Se non c'è token o è scaduto, non chiamiamo il backend
+    // Se non c'è token o è scaduto non chiamo il be
     if (!token || this.jwtHelper.isTokenExpired(token)) {
       console.log('Token valido?', !this.jwtHelper.isTokenExpired(token));
       return of(null);
@@ -88,9 +83,8 @@ export class AuthService {
     return this.http.get<iApiResponse<iAuthResponse>>(this.userUrl).pipe(
       tap((res) => {
         if (res && res.status === 'SUCCESS' && res.data) {
-          // Salvo i dati utente
           this.user.next(res.data.user);
-          // timer di auto-logout
+
           this.autoLogOut();
         }
       })
@@ -110,7 +104,7 @@ export class AuthService {
   isUserLogin(): boolean {
     const token = localStorage.getItem('token');
     if (!token) return false;
-    // Controlla scadenza
+
     return !this.jwtHelper.isTokenExpired(token);
   }
 

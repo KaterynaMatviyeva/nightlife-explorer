@@ -25,7 +25,7 @@ export class RegisterComponent {
     this.authSrv.register(registerData).subscribe({
       next: (res) => {
         if (res.data) {
-          console.log('Registrazione avvenuta con successo:', res.data.user);
+          console.log('Registrazione avvenuta con successo:', res);
 
           this.authSrv.user.next(res.data.user);
           registerForm.reset();
