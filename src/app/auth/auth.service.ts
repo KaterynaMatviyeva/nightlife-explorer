@@ -84,7 +84,7 @@ export class AuthService {
       tap((res) => {
         if (res && res.status === 'SUCCESS' && res.data) {
           this.user.next(res.data.user);
-
+          console.log('Utente ripristinato:', res.data.user);
           this.autoLogOut();
         }
       })
