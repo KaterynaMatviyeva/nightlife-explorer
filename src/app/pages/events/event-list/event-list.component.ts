@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { iEvent } from '../../interfaces/i-event';
-import { EventService } from '../../services/event.service';
+import { iEvent } from '../../../interfaces/i-event';
+import { EventService } from '../../../services/event.service';
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrl: './home.component.scss',
+  selector: 'app-event-list',
+  templateUrl: './event-list.component.html',
+  styleUrl: './event-list.component.scss',
 })
-export class HomeComponent implements OnInit {
+export class EventListComponent implements OnInit {
   events$: Observable<iEvent[]>;
 
   constructor(private eventService: EventService) {
@@ -16,10 +16,9 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // La lista viene caricata all'interno del service, grazie al BehaviorSubject
+    // La lista degli eventi è già gestita dal BehaviorSubject
   }
 
-  // Metodo per salvare l'evento nei preferiti (esempio)
   onSaveEvent(eventId: number): void {
     this.eventService.saveEvent(eventId).subscribe({
       next: () => alert('Evento salvato nei preferiti!'),

@@ -1,0 +1,68 @@
+<!-- src/app/components/event-form/event-form.component.html -->
+<div class="container">
+  <h2 class="my-4">{{ isEditMode ? "Modifica Evento" : "Crea Evento" }}</h2>
+  <form #eventForm="ngForm" (ngSubmit)="submitEvent()">
+    <div class="mb-3">
+      <label for="title" class="form-label">Titolo</label>
+      <input
+        type="text"
+        id="title"
+        name="title"
+        class="form-control"
+        [(ngModel)]="event.title"
+        required
+      />
+    </div>
+
+    <div class="mb-3">
+      <label for="description" class="form-label">Descrizione</label>
+      <textarea
+        id="description"
+        name="description"
+        class="form-control"
+        rows="3"
+        [(ngModel)]="event.description"
+      ></textarea>
+    </div>
+
+    <div class="mb-3">
+      <label for="eventDate" class="form-label">Data Evento</label>
+      <input
+        type="date"
+        id="eventDate"
+        name="eventDate"
+        class="form-control"
+        [(ngModel)]="event.eventDate"
+        required
+      />
+    </div>
+
+    <div class="mb-3">
+      <label for="location" class="form-label">Luogo</label>
+      <input
+        type="text"
+        id="location"
+        name="location"
+        class="form-control"
+        [(ngModel)]="event.location"
+        required
+      />
+    </div>
+
+    <div class="mb-3">
+      <label for="availableSeats" class="form-label">Posti Disponibili</label>
+      <input
+        type="number"
+        id="availableSeats"
+        name="availableSeats"
+        class="form-control"
+        [(ngModel)]="event.availableSeats"
+        required
+      />
+    </div>
+
+    <button type="submit" class="btn btn-primary">
+      {{ isEditMode ? "Aggiorna Evento" : "Crea Evento" }}
+    </button>
+  </form>
+</div>

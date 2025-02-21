@@ -1,0 +1,45 @@
+<div class="container mt-4">
+  <h2>I miei eventi</h2>
+  <div class="mb-3">
+    <!-- Link per creare un nuovo evento -->
+    <a routerLink="/events/manage/create" class="btn btn-success"
+      >Crea Nuovo Evento</a
+    >
+  </div>
+
+  <!-- Se non ci sono eventi, mostra un messaggio -->
+  <div *ngIf="(myEvents$ | async)?.length === 0" class="alert alert-info">
+    Non hai ancora creato nessun evento.
+  </div>
+
+  <div class="row">
+    <div *ngFor="let event of myEvents$ | async" class="col-md-4 mb-3">
+      <div class="card h-100">
+        <div class="card-body">
+          <h5 class="card-title">{{ event.title }}</h5>
+          <p class="card-text">{{ event.description }}</p>
+          <p class="card-text">
+            <small class="text-muted">
+              {{ event.eventDate | date : "shortDate" }} - {{ event.location }}
+            </small>
+          </p>
+        </div>
+        <div class="card-footer d-flex justify-content-between">
+          <!-- Pulsante per modificare l'evento -->
+          <a
+            [routerLink]="['/events/manage/edit', event.id]"
+            class="btn btn-primary btn-sm"
+            >Modifica</a
+          >
+          <!-- Pulsante per eliminare l'evento -->
+          <button
+            class="btn btn-danger btn-sm"
+            (click)="onDeleteEvent(event.id)"
+          >
+            Elimina
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

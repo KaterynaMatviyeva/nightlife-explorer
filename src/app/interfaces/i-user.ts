@@ -1,5 +1,7 @@
+import { iEvent } from './i-event';
+
 export enum Role {
-  ORGANIZER = ' ROLE_ORGANIZER',
+  ORGANIZER = 'ROLE_ORGANIZER',
   USER = 'ROLE_USER',
 }
 
@@ -9,4 +11,5 @@ export interface iUser {
   email: string;
   password: string;
   role: Role;
+  savedEvents?: iEvent[];
 }

@@ -62,11 +62,20 @@
             />
 
             <ul ngbDropdownMenu aria-labelledby="dropdownBasic1">
+              <!-- gestione del profilo come cancellazione dell'account ecc.. -->
               <li ngbDropdownItem>
-                <a class="dropdown-item" routerLink="/profile">Profile</a>
+                <a class="dropdown-item" routerLink="/profile">Profilo</a>
               </li>
               <li ngbDropdownItem>
-                <a routerLink="/users" class="dropdown-item">Users</a>
+                <a routerLink="/users" class="dropdown-item"
+                  >I miei preferiti</a
+                >
+              </li>
+              <!-- se sei organizer -->
+              <li ngbDropdownItem>
+                <a routerLink="/events/manage" class="dropdown-item"
+                  >Gestione eventi</a
+                >
               </li>
 
               <li ngbDropdownItem>

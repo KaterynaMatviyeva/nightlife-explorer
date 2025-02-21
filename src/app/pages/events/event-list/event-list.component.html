@@ -1,10 +1,7 @@
-<div class="container mt-4">
+<div class="container">
   <div class="row">
-    <!-- Cicla sugli eventi ricevuti dall'observable (usando l'async pipe) -->
-    <div *ngFor="let event of events$ | async" class="col-md-4 mb-4">
+    <div *ngFor="let event of events$ | async" class="col-md-4 mb-3">
       <div class="card h-100">
-        <!-- Se hai immagini potresti usare una card-img-top, altrimenti ometti questa parte -->
-        <!-- <img src="path/to/immagine.jpg" class="card-img-top" alt="Immagine evento"> -->
         <div class="card-body">
           <h5 class="card-title">{{ event.title }}</h5>
           <p class="card-text">{{ event.description }}</p>
@@ -13,11 +10,8 @@
               {{ event.eventDate | date : "shortDate" }} - {{ event.location }}
             </small>
           </p>
-        </div>
-        <div class="card-footer text-center">
-          <!-- Pulsante per salvare nei preferiti -->
           <button
-            class="btn btn-outline-primary btn-sm"
+            class="btn btn-outline-primary"
             (click)="onSaveEvent(event.id)"
           >
             Salva nei preferiti
