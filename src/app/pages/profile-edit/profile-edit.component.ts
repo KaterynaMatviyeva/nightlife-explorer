@@ -21,7 +21,6 @@ export class ProfileEditComponent {
   constructor(public authSrv: AuthService, private router: Router) {
     this.currentUser = this.authSrv.getCurrentUser();
 
-    // Se l'utente esiste, inizializza i campi di updateData
     if (this.currentUser) {
       this.updateData.email = this.currentUser.email;
       this.updateData.username = this.currentUser.username;
@@ -45,5 +44,4 @@ export class ProfileEditComponent {
       },
     });
   }
-  //form già compilato con i dati utente + tasto salva e ritorna nella pagina profilo con i dati modificati
 }

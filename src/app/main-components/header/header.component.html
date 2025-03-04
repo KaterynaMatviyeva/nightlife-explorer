@@ -19,9 +19,7 @@
         <li>
           <a routerLink="/disco" class="nav-link px-2 text-white">Discoteche</a>
         </li>
-        <!-- <li>
-          <a routerLink="" class="nav-link px-2 text-white">Pre-serata</a>
-        </li> -->
+
         <li>
           <a routerLink="/pre-party" class="nav-link px-2 text-white"
             >Pre Party</a
@@ -73,27 +71,23 @@
             />
 
             <ul ngbDropdownMenu aria-labelledby="dropdownBasic1">
-              <!-- gestione del profilo come cancellazione dell'account ecc.. -->
               <li ngbDropdownItem>
                 <a class="dropdown-item" routerLink="/profile">Profilo</a>
               </li>
 
-              <!-- se sei organizer -->
-
-              <!-- <div ngTemplate *ngIf="user?.role === 'ROLE_ORGANIZER'"> -->
               <li ngbDropdownItem>
                 <a routerLink="/events/manage" class="dropdown-item"
                   >Gestione eventi</a
                 >
               </li>
-              <!-- </div> -->
-              <!-- <div ngTemplate *ngIf="user?.role === 'ROLE_USER'">
+
+              <div>
                 <li ngbDropdownItem>
-                  <a routerLink="/events/manage" class="dropdown-item"
+                  <a routerLink="/saved-event" class="dropdown-item"
                     >Eventi salvati</a
                   >
                 </li>
-              </div> -->
+              </div>
 
               <li ngbDropdownItem>
                 <a (click)="logout()" class="dropdown-item btn">Logout</a>

@@ -77,7 +77,7 @@ export class AuthService {
 
   restoreLogin(): Observable<iApiResponse<iAuthResponse> | null> {
     const token = localStorage.getItem('token');
-    // Se non c'è token o è scaduto non chiamo il be
+
     if (!token || this.jwtHelper.isTokenExpired(token)) {
       console.log('Token valido?', !this.jwtHelper.isTokenExpired(token));
       return of(null);
@@ -128,13 +128,11 @@ export class AuthService {
     const now = new Date().getTime();
     const expTime = expirationDate.getTime() - now;
 
-    // Se scaduto slogga subito
     if (expTime <= 0) {
       this.logout();
       return;
     }
 
-    // Se non è scaduto imposta un timer
     this.logoutTimer = setTimeout(() => {
       this.logout();
     }, expTime);
@@ -145,18 +143,13 @@ export class AuthService {
     updateData: iEditUser
   ): Observable<iApiResponse<iAuthResponse>> {
     const url = `${this.editUrl}/${userId}`;
-    // Se preferisci, potresti usare `${this.userUrl}/users/${userId}` a seconda della config
 
     return this.http.put<iApiResponse<iAuthResponse>>(url, updateData).pipe(
       tap((res) => {
         if (res.status === 'SUCCESS' && res.data) {
-          // Se il backend restituisce un token nuovo, salvalo.
-          // (Dipende da come hai impostato il controller update)
           if (res.data.token) {
             localStorage.setItem('token', res.data.token);
           }
-
-          // Aggiorna il BehaviorSubject con il nuovo user
           this.user.next(res.data.user);
         }
       })

@@ -14,22 +14,18 @@ export class EventService {
   deleteEventUrl: string = environment.deleteEventUrl;
   saveEventUrl: string = environment.saveEventUrl;
 
-  //eventi filtrati prendi tutti e fai filter
-  //getDiscoEvents (){}??
-  //prePartyEvents
-  //afterPartyEvents
-
-  // BehaviorSubject che contiene la lista degli eventi
   private eventsSubject: BehaviorSubject<iEvent[]> = new BehaviorSubject<
     iEvent[]
   >([]);
   public events$: Observable<iEvent[]> = this.eventsSubject.asObservable();
 
+  private favoritesSubject = new BehaviorSubject<iEvent[]>([]);
+  public favorites$ = this.favoritesSubject.asObservable();
+
   constructor(private http: HttpClient) {
     this.loadEvents();
   }
 
-  // Carica la lista degli eventi dal backend e aggiorna il BehaviorSubject
   loadEvents(): void {
     this.http.get<iEvent[]>(this.getEventsUrl).subscribe({
       next: (events: iEvent[]) => this.eventsSubject.next(events),
@@ -38,12 +34,10 @@ export class EventService {
     });
   }
 
-  // Ritorna l'observable della lista degli eventi
   getAllEvents(): Observable<iEvent[]> {
     return this.events$;
   }
 
-  // Crea un nuovo evento e aggiorna il BehaviorSubject
   createEvent(newEvent: iEvent): Observable<iEvent> {
     return this.http.post<iEvent>(this.postEventUrl, newEvent).pipe(
       tap((createdEvent: iEvent) => {
@@ -54,7 +48,6 @@ export class EventService {
     );
   }
 
-  // Aggiorna un evento esistente e aggiorna il BehaviorSubject
   updateEvent(id: number, updatedEvent: iEvent): Observable<iEvent> {
     const url: string = this.updateEventUrl.replace('{id}', id.toString());
     return this.http.put<iEvent>(url, updatedEvent).pipe(
@@ -71,7 +64,6 @@ export class EventService {
     );
   }
 
-  // Elimina un evento e aggiorna il BehaviorSubject
   deleteEvent(id: number): Observable<void> {
     const url: string = this.deleteEventUrl.replace('{id}', id.toString());
     return this.http.delete<void>(url).pipe(
@@ -102,15 +94,4 @@ export class EventService {
       map((events) => events.filter((ev) => ev.category === 'After Party'))
     );
   }
-
-  // Salva un evento nei preferiti (chiamata POST) e gestisce l'aggiornamento se necessario
-  // saveEvent(id: number): Observable<unknown> {
-  //   const url: string = this.saveEventUrl.replace('{id}', id.toString());
-  //   return this.http.post<iEvent>(url, {}).pipe(
-  //     tap(() => {
-  //       // Se necessario, puoi richiamare loadEvents() per aggiornare la lista dei preferiti,
-  //       // oppure aggiornare lo stato dell'utente tramite un altro BehaviorSubject.
-  //     })
-  //   );
-  // }
 }

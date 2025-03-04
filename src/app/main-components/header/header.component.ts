@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../auth/auth.service';
 import { iUser } from '../../interfaces/i-user';
-import { iEvent } from '../../interfaces/i-event';
 import { EventService } from '../../services/event.service';
 
 @Component({

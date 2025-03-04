@@ -39,7 +39,7 @@ export class EventFormComponent implements OnInit {
     const eventId: string | null = this.route.snapshot.paramMap.get('id');
     if (eventId) {
       this.isEditMode = true;
-      //  cerco l'evento dalla lista già caricata
+
       this.eventService.getAllEvents().subscribe((events: iEvent[]) => {
         const foundEvent: iEvent | undefined = events.find(
           (ev) => ev.id === +eventId

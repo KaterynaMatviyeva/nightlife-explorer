@@ -1,9 +1,7 @@
 <div class="container p-4">
   <div class="row">
-    <!-- Cicla sugli eventi ricevuti dall'observable (usando l'async pipe) -->
     <div *ngFor="let event of preParty" class="col-md-4 mb-4">
       <div class="card h-100">
-        <!-- Se hai immagini potresti usare una card-img-top, altrimenti ometti questa parte -->
         <!-- <img src="path/to/immagine.jpg" class="card-img-top" alt="Immagine evento"> -->
         <div class="card-body">
           <h5 class="card-title">{{ event.title }}</h5>
@@ -19,22 +17,19 @@
             </small>
           </p>
 
-          <!-- rendere il link cliccabile -->
           <a *ngIf="event.ticketLink" href="{{ event.ticketLink }}"
             >Acquista il biglietto</a
           >
         </div>
         <div class="card-footer text-center">
-          <!-- Pulsante per salvare nei preferiti -->
           <p class="card-text text-center text-warning">
-            <a class="btn text-warning"><i class="bi bi-heart"></i></a>
+            <a (click)="toggleFavorite(event)" class="btn text-warning"
+              ><i
+                class="bi"
+                [ngClass]="isFavorite(event) ? 'bi-heart-fill' : 'bi-heart'"
+              ></i
+            ></a>
           </p>
-          <!-- <button
-            class="btn btn-outline-primary btn-sm"
-            (click)="onSaveEvent(event.id)"
-          >
-            Salva nei preferiti
-          </button> -->
         </div>
       </div>
     </div>

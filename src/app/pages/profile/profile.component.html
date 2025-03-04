@@ -32,17 +32,9 @@
           Role: {{ user?.role }}
         </h6>
       </div>
-
-      <!-- modifica password -->
     </div>
     <hr />
     <div class="container d-flex flex-wrap justify-content-center gap-2">
-      <!-- <button
-        type="button"
-        class="btn btn-outline-light border-2 rounded-0 px-5 bg-white text-black fw-semibold"
-      >
-        SAVE
-      </button> -->
       <button
         routerLink="/profile-edit"
         type="button"
@@ -51,12 +43,6 @@
         EDIT PROFILE
       </button>
 
-      <!-- <button
-        type="button"
-        class="btn btn-outline-secondary border-2 rounded-0 px-5 fw-semibold"
-      >
-        CANCEL
-      </button> -->
       <button
         (click)="deleteUser()"
         type="button"

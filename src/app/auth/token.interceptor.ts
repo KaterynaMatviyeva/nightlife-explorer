@@ -27,7 +27,6 @@ export class TokenInterceptor implements HttpInterceptor {
         },
       });
     } else if (!request.headers.has('Content-Type')) {
-      // Aggiungi Content-Type se non presente
       clonedRequest = request.clone({
         setHeaders: {
           'Content-Type': 'application/json',
