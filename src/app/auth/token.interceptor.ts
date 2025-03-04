@@ -18,12 +18,22 @@ export class TokenInterceptor implements HttpInterceptor {
     const token = localStorage.getItem('token');
     console.log('[Interceptor] token =', token, 'request.url =', request.url);
 
-    if (!token) return next.handle(request);
-    const clonedRequest = request.clone({
-      setHeaders: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    let clonedRequest = request;
+    if (token) {
+      clonedRequest = request.clone({
+        setHeaders: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+      });
+    } else if (!request.headers.has('Content-Type')) {
+      // Aggiungi Content-Type se non presente
+      clonedRequest = request.clone({
+        setHeaders: {
+          'Content-Type': 'application/json',
+        },
+      });
+    }
 
     return next.handle(clonedRequest);
   }

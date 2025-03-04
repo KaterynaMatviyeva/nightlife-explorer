@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { iEvent } from '../../../interfaces/i-event';
 import { ActivatedRoute, Router } from '@angular/router';
 import { EventService } from '../../../services/event.service';
+import { AuthService } from '../../../auth/auth.service';
+import { Observable } from 'rxjs';
+import { iUser } from '../../../interfaces/i-user';
 
 @Component({
   selector: 'app-event-form',
@@ -15,24 +18,28 @@ export class EventFormComponent implements OnInit {
     description: '',
     eventDate: '',
     location: '',
-    availableSeats: 0,
     organizerId: 0,
     organizerUsername: '',
+    ticketLink: '',
+    category: 'Discoteca',
   };
+
+  user!: iUser | null;
 
   isEditMode: boolean = false;
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private eventService: EventService
+    private eventService: EventService,
+    private authSvr: AuthService
   ) {}
 
   ngOnInit(): void {
     const eventId: string | null = this.route.snapshot.paramMap.get('id');
     if (eventId) {
       this.isEditMode = true;
-      // Per semplicità, cerchiamo l'evento dalla lista già caricata
+      //  cerco l'evento dalla lista già caricata
       this.eventService.getAllEvents().subscribe((events: iEvent[]) => {
         const foundEvent: iEvent | undefined = events.find(
           (ev) => ev.id === +eventId
@@ -42,6 +49,8 @@ export class EventFormComponent implements OnInit {
         }
       });
     }
+
+    this.user = this.authSvr.getCurrentUser();
   }
 
   submitEvent(): void {

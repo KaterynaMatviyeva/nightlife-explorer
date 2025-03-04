@@ -1,3 +1,8 @@
 img {
   width: 30px;
 }
+header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}

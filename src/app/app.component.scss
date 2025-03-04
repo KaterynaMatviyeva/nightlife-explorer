@@ -1,0 +1,14 @@
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* Altezza minima pari al 100% della viewport */
+  margin: 0;
+}
+main {
+  flex-grow: 1; /* Occupa tutto lo spazio disponibile */
+  padding: 20px;
+  background: lightgray;
+}
+::-webkit-scrollbar {
+  display: none;
+}

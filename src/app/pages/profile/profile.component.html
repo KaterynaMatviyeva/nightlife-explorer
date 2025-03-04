@@ -1,0 +1,69 @@
+<main class="bg-black">
+  <title>Edit Profile</title>
+  <div class="container w-50">
+    <h1 class="fw-normal text-white">Edit Profile</h1>
+
+    <hr />
+  </div>
+
+  <div class="container w-50">
+    <div class="row mt-4">
+      <div class="col-3 col-lg-3">
+        <img
+          class="rounded-2"
+          width="50"
+          src="https://i.pinimg.com/564x/1b/a2/e6/1ba2e6d1d4874546c70c91f1024e17fb.jpg"
+          alt="kids_icon"
+        />
+      </div>
+
+      <div class="col-3 d-flex align-items-center">
+        <h6 class="text-white p-2 fw-normal text-center d-flex">
+          {{ user?.username }}
+        </h6>
+      </div>
+      <div class="col-3 d-flex align-items-center">
+        <h6 class="text-white p-2 fw-normal text-center">
+          {{ user?.email }}
+        </h6>
+      </div>
+      <div class="col-3 d-flex align-items-center">
+        <h6 class="text-white p-2 fw-normal text-center d-flex">
+          Role: {{ user?.role }}
+        </h6>
+      </div>
+
+      <!-- modifica password -->
+    </div>
+    <hr />
+    <div class="container d-flex flex-wrap justify-content-center gap-2">
+      <!-- <button
+        type="button"
+        class="btn btn-outline-light border-2 rounded-0 px-5 bg-white text-black fw-semibold"
+      >
+        SAVE
+      </button> -->
+      <button
+        routerLink="/profile-edit"
+        type="button"
+        class="btn btn-outline-secondary border-2 rounded-0 px-5 fw-semibold"
+      >
+        EDIT PROFILE
+      </button>
+
+      <!-- <button
+        type="button"
+        class="btn btn-outline-secondary border-2 rounded-0 px-5 fw-semibold"
+      >
+        CANCEL
+      </button> -->
+      <button
+        (click)="deleteUser()"
+        type="button"
+        class="btn btn-outline-secondary border-2 rounded-0 px-5 fw-semibold"
+      >
+        DELETE PROFILE
+      </button>
+    </div>
+  </div>
+</main>

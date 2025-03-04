@@ -14,15 +14,24 @@
         class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0"
       >
         <li>
-          <a routerLink="" class="nav-link px-2 text-secondary">Home</a>
+          <a routerLink="" class="nav-link px-2 text-warning">Home</a>
         </li>
         <li>
-          <a routerLink="" class="nav-link px-2 text-white">Discoteche</a>
+          <a routerLink="/disco" class="nav-link px-2 text-white">Discoteche</a>
         </li>
-        <li>
+        <!-- <li>
           <a routerLink="" class="nav-link px-2 text-white">Pre-serata</a>
+        </li> -->
+        <li>
+          <a routerLink="/pre-party" class="nav-link px-2 text-white"
+            >Pre Party</a
+          >
         </li>
-        <li><a routerLink="" class="nav-link px-2 text-white">Bar</a></li>
+        <li>
+          <a routerLink="/after-party" class="nav-link px-2 text-white"
+            >After Party</a
+          >
+        </li>
         <li>
           <a routerLink="" class="nav-link px-2 text-white">Lavora con noi</a>
         </li>
@@ -37,18 +46,20 @@
         />
       </form>
 
-      <div class="text-end">
-        <a
-          routerLink="/auth/login"
-          type="button"
-          class="btn btn-outline-light me-2"
-          >Login</a
-        >
-        <a routerLink="/auth/register" type="button" class="btn btn-warning"
-          >Register</a
-        >
+      <div ngTemplate *ngIf="!authSvr.getCurrentUser()">
+        <div class="text-end">
+          <a
+            routerLink="/auth/login"
+            type="button"
+            class="btn btn-outline-light me-2"
+            >Login</a
+          >
+          <a routerLink="/auth/register" type="button" class="btn btn-warning"
+            >Register</a
+          >
+        </div>
       </div>
-      <div *ngIf="authSvc.getCurrentUser()" class="row">
+      <div *ngIf="authSvr.getCurrentUser()" class="row">
         <div class="col">
           <div ngbDropdown class="d-inline-block">
             <img
@@ -66,17 +77,23 @@
               <li ngbDropdownItem>
                 <a class="dropdown-item" routerLink="/profile">Profilo</a>
               </li>
-              <li ngbDropdownItem>
-                <a routerLink="/users" class="dropdown-item"
-                  >I miei preferiti</a
-                >
-              </li>
+
               <!-- se sei organizer -->
+
+              <!-- <div ngTemplate *ngIf="user?.role === 'ROLE_ORGANIZER'"> -->
               <li ngbDropdownItem>
                 <a routerLink="/events/manage" class="dropdown-item"
                   >Gestione eventi</a
                 >
               </li>
+              <!-- </div> -->
+              <!-- <div ngTemplate *ngIf="user?.role === 'ROLE_USER'">
+                <li ngbDropdownItem>
+                  <a routerLink="/events/manage" class="dropdown-item"
+                    >Eventi salvati</a
+                  >
+                </li>
+              </div> -->
 
               <li ngbDropdownItem>
                 <a (click)="logout()" class="dropdown-item btn">Logout</a>

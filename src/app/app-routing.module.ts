@@ -12,6 +12,8 @@ const routes: Routes = [
       import('./pages/home/home.module').then((m) => m.HomeModule),
   },
   { path: 'events', loadChildren: () => import('./pages/events/events.module').then(m => m.EventsModule) },
+  { path: 'profile', loadChildren: () => import('./pages/profile/profile.module').then(m => m.ProfileModule) },
+  { path: 'profile-edit', loadChildren: () => import('./pages/profile-edit/profile-edit.module').then(m => m.ProfileEditModule) },
 ];
 
 @NgModule({

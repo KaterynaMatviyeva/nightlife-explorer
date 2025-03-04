@@ -6,10 +6,10 @@ export enum Role {
 }
 
 export interface iUser {
-  id?: number;
+  id: number;
   username: string;
   email: string;
   password: string;
   role: Role;
-  savedEvents?: iEvent[];
+  // savedEvents?: iEvent[];
 }

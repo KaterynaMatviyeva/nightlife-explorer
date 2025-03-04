@@ -22,16 +22,18 @@ export class MyEventsComponent implements OnInit {
   ngOnInit(): void {
     // Ottieni l'utente corrente dal service di autenticazione
     this.currentUser = this.authService.getCurrentUser();
+    console.log('utente ', this.currentUser);
 
     if (this.currentUser && this.currentUser.role === Role.ORGANIZER) {
+      console.log(Role.ORGANIZER, 'ruoloooo');
       // Filtra gli eventi per mostrare solo quelli creati dall'organizzatore corrente
       this.myEvents$ = this.eventService
         .getAllEvents()
-        .pipe(
-          map((events: iEvent[]) =>
-            events.filter((event) => event.organizerId === this.currentUser?.id)
-          )
-        );
+        .pipe
+        // map((events: iEvent[]) =>
+        //   events.filter((event) => event.organizerId === this.currentUser?.id)
+        // )
+        ();
     } else {
       // Se l'utente non è un organizzatore, mostra un array vuoto (oppure gestisci un'altra logica)
       this.myEvents$ = of([]);

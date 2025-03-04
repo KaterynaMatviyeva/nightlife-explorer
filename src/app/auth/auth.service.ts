@@ -9,6 +9,7 @@ import { iRegisterRequest } from '../interfaces/i-register-request';
 import { environment } from '../../environments/environment.development';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { Router } from '@angular/router';
+import { iEditUser } from '../interfaces/i-edit-user';
 
 @Injectable({
   providedIn: 'root',
@@ -17,6 +18,8 @@ export class AuthService {
   registerUrl: string = environment.registerUrl;
   loginUrl: string = environment.loginUrl;
   userUrl: string = environment.userUrl;
+  deleteUrl: string = environment.deleteUrl;
+  editUrl: string = environment.editUrl;
 
   jwtHelper: JwtHelperService = new JwtHelperService();
 
@@ -62,7 +65,7 @@ export class AuthService {
           if (res.status === 'SUCCESS' && res.data) {
             localStorage.setItem('token', res.data.token);
 
-            console.log('Token ricevuto dal server:', res.data.token);
+            console.log('Token ricevuto dal server dal login:', res.data.token);
 
             this.user.next(res.data.user);
 
@@ -135,5 +138,41 @@ export class AuthService {
     this.logoutTimer = setTimeout(() => {
       this.logout();
     }, expTime);
+  }
+
+  editUser(
+    userId: number,
+    updateData: iEditUser
+  ): Observable<iApiResponse<iAuthResponse>> {
+    const url = `${this.editUrl}/${userId}`;
+    // Se preferisci, potresti usare `${this.userUrl}/users/${userId}` a seconda della config
+
+    return this.http.put<iApiResponse<iAuthResponse>>(url, updateData).pipe(
+      tap((res) => {
+        if (res.status === 'SUCCESS' && res.data) {
+          // Se il backend restituisce un token nuovo, salvalo.
+          // (Dipende da come hai impostato il controller update)
+          if (res.data.token) {
+            localStorage.setItem('token', res.data.token);
+          }
+
+          // Aggiorna il BehaviorSubject con il nuovo user
+          this.user.next(res.data.user);
+        }
+      })
+    );
+  }
+
+  deleteUser(userId: number): Observable<iApiResponse<iAuthResponse>> {
+    const url = `${this.deleteUrl}/${userId}`;
+    return this.http.delete<iApiResponse<iAuthResponse>>(url).pipe(
+      tap((res) => {
+        if (res.status === 'SUCCESS') {
+          if (this.user.value?.id === userId) {
+            this.logout();
+          }
+        }
+      })
+    );
   }
 }

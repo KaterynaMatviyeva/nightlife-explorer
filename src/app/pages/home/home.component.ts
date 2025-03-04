@@ -20,11 +20,11 @@ export class HomeComponent implements OnInit {
   }
 
   // Metodo per salvare l'evento nei preferiti (esempio)
-  onSaveEvent(eventId: number): void {
-    this.eventService.saveEvent(eventId).subscribe({
-      next: () => alert('Evento salvato nei preferiti!'),
-      error: (err: Error) =>
-        console.error("Errore nel salvataggio dell'evento:", err),
-    });
-  }
+  // onSaveEvent(eventId: number): void {
+  //   this.eventService.saveEvent(eventId).subscribe({
+  //     next: () => alert('Evento salvato nei preferiti!'),
+  //     error: (err: Error) =>
+  //       console.error("Errore nel salvataggio dell'evento:", err),
+  //   });
+  // }
 }
